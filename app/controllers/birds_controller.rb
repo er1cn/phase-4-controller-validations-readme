@@ -10,7 +10,10 @@ class BirdsController < ApplicationController
   # POST /birds
   def create
     bird = Bird.create(bird_params)
+    if bird.valid?
     render json: bird, status: :created
+    else
+      render json: {errors: bird.errors}, status: :unprocessable_entity
   end
 
   # GET /birds/:id
